@@ -1,4 +1,4 @@
-package com.github.saleco.medicalbookings.agenda.dto;
+package com.github.saleco.medicalbookings.appointment.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.saleco.medicalbookings.dto.PageableDto;
@@ -16,11 +16,12 @@ import java.time.OffsetDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(name = "Doctor's Availability Search")
-public class SearchDoctorsAvailabilityDto extends PageableDto {
+@Schema(name = "Appointments's Search")
+public class SearchAppointmentsDto extends PageableDto {
 
-    @Schema(description = "Doctor's Name", example = "John")
-    private String doctorName;
+    @Schema(description = "Doctor's Identification", example = "1")
+    @NotNull
+    private Long doctorId;
 
     @Schema(description = "Start from", required = true, format = "date-time", example = "2021-03-25T09:00:00Z")
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ", shape=JsonFormat.Shape.STRING)

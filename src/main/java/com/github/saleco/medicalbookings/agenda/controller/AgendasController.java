@@ -2,11 +2,10 @@ package com.github.saleco.medicalbookings.agenda.controller;
 
 import com.github.saleco.medicalbookings.agenda.dto.AgendaDto;
 import com.github.saleco.medicalbookings.agenda.dto.SearchDoctorsAvailabilityDto;
+import com.github.saleco.medicalbookings.agenda.dto.UpdateDoctorsAvailabilityDto;
 import com.github.saleco.medicalbookings.agenda.service.AgendaService;
-import com.github.saleco.medicalbookings.doctor.dto.DoctorDto;
-import com.github.saleco.medicalbookings.doctor.service.DoctorService;
+import com.github.saleco.medicalbookings.utils.MedicalBookingsResponse;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,6 +18,8 @@ import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/ap1/v1/agendas")
@@ -33,11 +34,28 @@ public class AgendasController {
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "The list of doctors Availability has been returned",
-        content = @Content(array = @ArraySchema(schema = @Schema(implementation = AgendaDto.class))))})
+        content = @Content(array = @ArraySchema(schema = @Schema(implementation = AgendaDto.class)))),
+      @ApiResponse(responseCode = "400", description = "Invalid parameter",
+      content = @Content(schema = @Schema(implementation = MedicalBookingsResponse.class)))})
     public Page<AgendaDto> getAgendas(
-      @ParameterObject SearchDoctorsAvailabilityDto searchDoctorsAvailabilityDto) {
-        return agendaService.getAgendas(searchDoctorsAvailabilityDto);
+      @ParameterObject @Valid SearchDoctorsAvailabilityDto searchDoctorsAvailabilityDto) {
+        return agendaService.getAvailability(searchDoctorsAvailabilityDto);
     }
+
+    @Operation(summary = "Update Doctors Availability")
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses(value = {
+      @ApiResponse(responseCode = "204", description = "The doctors availability was successfully updated."),
+      @ApiResponse(responseCode = "400", description = "Invalid parameter",
+        content = @Content(schema = @Schema(implementation = MedicalBookingsResponse.class)))})
+    public void updateDoctorsAvailability(
+      @ParameterObject @Valid UpdateDoctorsAvailabilityDto updateDoctorsAvailabilityDto) {
+        agendaService.updateAvailability(updateDoctorsAvailabilityDto);
+    }
+
+
+
+
 }
 
 

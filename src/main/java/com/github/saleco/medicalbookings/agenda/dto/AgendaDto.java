@@ -20,7 +20,7 @@ public class AgendaDto {
     @Schema(description = "Agenda's Identification", required = true, example = "1")
     private Long id;
 
-    @Schema(description = "Agenda's Doctor", required = true, example = "1")
+    @Schema(description = "Agenda's Doctor", required = true)
     private DoctorDto doctor;
 
     @Schema(description = "Agenda's Start Time", required = true, example = "2020-01-01 10:00")

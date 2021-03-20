@@ -1,11 +1,16 @@
 package com.github.saleco.medicalbookings.patient.service;
 
+import com.github.saleco.medicalbookings.exception.ValidationException;
 import com.github.saleco.medicalbookings.patient.dto.PatientDto;
 import com.github.saleco.medicalbookings.patient.mapper.PatientMapper;
 import com.github.saleco.medicalbookings.patient.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PatientServiceImpl implements PatientService {
@@ -15,7 +20,26 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientDto save(PatientDto patientDto) {
+        log.debug("Creating patient {}", patientDto);
         return patientMapper
           .modelToDto(patientRepository.save(patientMapper.dtoToModel(patientDto)));
+    }
+
+    @Override
+    public PatientDto findById(Long id) {
+        log.debug("Searching patient with id {}", id);
+        return patientRepository.findById(id)
+          .map(patientMapper::modelToDto)
+          .orElseThrow(() -> new ValidationException("Patient not found."));
+    }
+
+    @Override
+    public Page<PatientDto> getPatients(int page, int size) {
+        log.debug("Searching patients by page {}, pageSize {}.", page, size);
+        return
+          patientRepository
+            .findAll(PageRequest.of(page, size))
+            .map(patientMapper::modelToDto);
+
     }
 }

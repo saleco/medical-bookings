@@ -8,4 +8,5 @@ public interface DoctorService {
     Page<DoctorDto> getDoctors(int page, int size);
     DoctorDto save(DoctorDto doctorDto);
 
+    DoctorDto findById(Long id);
 }

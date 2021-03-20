@@ -2,8 +2,10 @@ package com.github.saleco.medicalbookings.boostrap;
 
 import com.github.javafaker.Faker;
 import com.github.saleco.medicalbookings.agenda.dto.AgendaDto;
+import com.github.saleco.medicalbookings.agenda.dto.SearchDoctorsAvailabilityDto;
 import com.github.saleco.medicalbookings.agenda.service.AgendaService;
-import com.github.saleco.medicalbookings.appointment.dto.AppointmentDto;
+import com.github.saleco.medicalbookings.appointment.dto.CreateAppointmentDto;
+import com.github.saleco.medicalbookings.appointment.manager.AppointmentManager;
 import com.github.saleco.medicalbookings.doctor.dto.DoctorDto;
 import com.github.saleco.medicalbookings.doctor.service.DoctorService;
 import com.github.saleco.medicalbookings.patient.dto.PatientDto;
@@ -33,6 +35,7 @@ public class MedicalBookingsLoader implements CommandLineRunner {
     private final DoctorService doctorService;
     private final AgendaService agendaService;
     private final PatientService patientService;
+    private final AppointmentManager appointmentManager;
 
     @Override
     public void run(String... args) throws Exception {
@@ -46,7 +49,7 @@ public class MedicalBookingsLoader implements CommandLineRunner {
             //considering weekends and lunch time form 12pm to 1pm
             for(OffsetDateTime today = OffsetDateTime.now(); today.isBefore(OffsetDateTime.now().plusDays(MONTH_FINAL_DAY)); today = today.plusDays(1)) {
                 for (int hour = INITAL_WORKING_HOUR; hour < FINAL_WORKING_HOUR; hour++) {
-                    AgendaDto agendaDto = agendaService.save(createAgenda(doctorDto, today, hour));
+                    agendaService.createAgenda(createAgenda(doctorDto, today, hour));
                 }
             }
         }
@@ -54,7 +57,34 @@ public class MedicalBookingsLoader implements CommandLineRunner {
         //creates patients
         for (int i = 0; i < 20; i++) {
             PatientDto patientDto = patientService.save(createPatient());
+
+            //finds a random availability in the next 5 days and setup an appointment
+            AgendaDto agendaDto = getAgendaAvaliability();
+
+            //create appointment
+            appointmentManager.createAppointment(createAppointment(agendaDto.getId(), patientDto.getId()));
         }
+
+        //sets unavailable for a specific time period
+    }
+
+    private CreateAppointmentDto createAppointment(Long agendaId, Long patientId) {
+     return CreateAppointmentDto
+              .builder()
+              .agendaId(agendaId)
+              .patientId(patientId)
+              .build();
+    }
+
+    private AgendaDto getAgendaAvaliability() {
+        Page<AgendaDto> agendaDtoPage = agendaService.getAvailability(
+            SearchDoctorsAvailabilityDto
+              .builder()
+              .startingFrom(OffsetDateTime.now())
+              .endingAt(OffsetDateTime.now().plusDays(5))
+              .build()
+          );
+        return agendaDtoPage.getContent().stream().findFirst().orElseThrow(RuntimeException::new);
     }
 
     private PatientDto createPatient() {
