@@ -138,16 +138,6 @@
                 </configuration>
             </plugin>
 
-            <!-- code coverage in coveralls -->
-            <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>4.3.0</version>
-                <configuration>
-                    <repoToken>25zA1l0ziB1CudUIUBCw4GlnXgT5pPzwb</repoToken>
-                </configuration>
-            </plugin>
-
             <!-- Code coverage with Jacoco -->
             <plugin>
                 <groupId>org.jacoco</groupId>
