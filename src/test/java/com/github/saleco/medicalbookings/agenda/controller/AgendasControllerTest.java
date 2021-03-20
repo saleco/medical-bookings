@@ -42,7 +42,7 @@ class AgendasControllerTest {
           .perform(get("/ap1/v1/agendas/search")
             .contentType(MediaType.APPLICATION_JSON))
           .andExpect(status().is4xxClientError())
-          .andExpect(content().string(containsString("We are sorry, something unexpected happened. Please try it again later.")));
+          .andExpect(content().string(containsString("There is a validation rule that prevents the request.")));
 
         then(agendaService).shouldHaveNoInteractions();
     }
@@ -73,6 +73,8 @@ class AgendasControllerTest {
         mockMvc
           .perform(get("/ap1/v1/agendas/search")
             .contentType(MediaType.APPLICATION_JSON)
+            .param("startingFrom", searchDoctorsAvailabilityDto.getStartingFrom().toString())
+            .param("endingAt", searchDoctorsAvailabilityDto.getEndingAt().toString())
             .content(objectMapper.writeValueAsString(searchDoctorsAvailabilityDto))
           ).andExpect(status().is2xxSuccessful());
 

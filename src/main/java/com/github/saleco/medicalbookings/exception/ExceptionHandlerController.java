@@ -4,6 +4,7 @@ import com.github.saleco.medicalbookings.utils.MedicalBookingsResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -61,6 +62,43 @@ public class ExceptionHandlerController {
 		if (ex instanceof MethodArgumentNotValidException) {
 			StringBuilder message = new StringBuilder("There is a validation rule that prevents the request. See rule | ");
 			MethodArgumentNotValidException nve = (MethodArgumentNotValidException) ex;
+			BindingResult bindingResult = nve.getBindingResult();
+			for (ObjectError error : bindingResult.getAllErrors()) {
+				String code = error.getCode();
+				String f = error.getCodes()[1];
+				String field = f.substring(f.indexOf('.') + 1);
+
+				if ("NotNull".equals(code)) {
+					message.append(START_TAG + field + ",mandatory" + END_TAG);
+				}
+				if ("Size".equals(code)) {
+					String min = "" + error.getArguments()[2];
+					String max = "" + error.getArguments()[1];
+					message.append(START_TAG + field + ",size," + min + "-" + max + END_TAG);
+				}
+				if ("Pattern".equals(code)) {
+					String full = error.getDefaultMessage();
+					String[] parts = full.split("\"");
+					String pattern = "";
+					if (parts.length > 1) {
+						pattern = parts[1];
+					}
+					message.append(START_TAG + field + ",pattern," + pattern + END_TAG);
+				}
+				if("Min".equals(code)){
+					String min = "" + error.getArguments()[1];
+
+					message.append(START_TAG + field + ",min," + min + END_TAG);
+				}
+			}
+
+			log.info("ValidationException: %s", message, ex);
+			ex = new ValidationException(message.toString());
+		}
+
+		if (ex instanceof BindException) {
+			StringBuilder message = new StringBuilder("There is a validation rule that prevents the request. See rule | ");
+			BindException nve = (BindException) ex;
 			BindingResult bindingResult = nve.getBindingResult();
 			for (ObjectError error : bindingResult.getAllErrors()) {
 				String code = error.getCode();

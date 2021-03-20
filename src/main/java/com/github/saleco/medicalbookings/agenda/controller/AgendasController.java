@@ -6,6 +6,7 @@ import com.github.saleco.medicalbookings.agenda.dto.UpdateDoctorsAvailabilityDto
 import com.github.saleco.medicalbookings.agenda.service.AgendaService;
 import com.github.saleco.medicalbookings.utils.MedicalBookingsResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -49,7 +50,7 @@ public class AgendasController {
       @ApiResponse(responseCode = "400", description = "Invalid parameter",
         content = @Content(schema = @Schema(implementation = MedicalBookingsResponse.class)))})
     public void updateDoctorsAvailability(
-      @ParameterObject @Valid UpdateDoctorsAvailabilityDto updateDoctorsAvailabilityDto) {
+      @Parameter(name = "Update Doctors Availability DTO", required = true) @RequestBody @Valid UpdateDoctorsAvailabilityDto updateDoctorsAvailabilityDto) {
         agendaService.updateAvailability(updateDoctorsAvailabilityDto);
     }
 
