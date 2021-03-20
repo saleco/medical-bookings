@@ -9,7 +9,7 @@ jobs:
 build:
   steps:
     - codecov/upload:
-        file: ../target/coverage-reports/jacoco-ut.exec
+        file: {{ coverage_report_filepath }}
   # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
   build-and-test:
     # These next lines define a docker executor: https://circleci.com/docs/2.0/executor-types/
