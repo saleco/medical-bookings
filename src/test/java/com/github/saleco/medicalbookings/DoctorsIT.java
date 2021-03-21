@@ -4,7 +4,6 @@ import com.github.saleco.medicalbookings.agenda.dto.AgendaDto;
 import com.github.saleco.medicalbookings.agenda.dto.SearchDoctorsAvailabilityDto;
 import com.github.saleco.medicalbookings.agenda.dto.UpdateDoctorsAvailabilityDto;
 import com.github.saleco.medicalbookings.appointment.dto.AppointmentDto;
-import com.github.saleco.medicalbookings.doctor.dto.DoctorDto;
 import com.github.saleco.medicalbookings.exception.NotFoundException;
 import com.github.saleco.medicalbookings.exception.ValidationException;
 import com.github.saleco.medicalbookings.patient.dto.PatientDto;
@@ -13,12 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 class DoctorsIT extends BaseIT {

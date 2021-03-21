@@ -12,7 +12,6 @@ import com.github.saleco.medicalbookings.patient.dto.PatientDto;
 import com.github.saleco.medicalbookings.patient.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
