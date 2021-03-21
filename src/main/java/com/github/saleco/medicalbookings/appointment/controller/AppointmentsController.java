@@ -31,12 +31,15 @@ public class AppointmentsController {
 
     private final AppointmentManager appointmentManager;
 
-    @Operation(summary = "Schedule Appointment")
+    @Operation(summary = "Schedule Appointment",
+      description = "As a patient, I must be able to see the availability of the doctors")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
-      @ApiResponse(responseCode = "201", description = "The Appointment was successfully scheduled.",
+      @ApiResponse(responseCode = "200", description = "The Appointment was successfully scheduled.",
         content = @Content(array = @ArraySchema(schema = @Schema(implementation = AppointmentDto.class)))),
       @ApiResponse(responseCode = "400", description = "Invalid parameter",
+        content = @Content(schema = @Schema(implementation = MedicalBookingsResponse.class))),
+      @ApiResponse(responseCode = "404", description = "Not found",
         content = @Content(schema = @Schema(implementation = MedicalBookingsResponse.class)))})
     public AppointmentDto scheduleAppointment(
        @Parameter(name = "Create Appointment DTO", required = true) @RequestBody @Valid CreateAppointmentDto createAppointmentDto) {
@@ -44,7 +47,8 @@ public class AppointmentsController {
         return appointmentManager.createAppointment(createAppointmentDto);
     }
 
-    @Operation(summary = "Search Appointments")
+    @Operation(summary = "Search Appointments for the given criterias" ,
+      description = "As a doctor, I must be able to see the appointments that I have for a given time period.")
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "The list of appointments for the given criterias has been returned",

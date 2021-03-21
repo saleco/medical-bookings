@@ -1,6 +1,5 @@
 package com.github.saleco.medicalbookings.agenda.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -23,14 +22,14 @@ public class UpdateDoctorsAvailabilityDto {
     private Long doctorId;
 
     @Schema(description = "Start from", required = true, format = "date-time", example = "2021-03-25T09:00:00Z")
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ", shape=JsonFormat.Shape.STRING)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull
-    private OffsetDateTime startingFrom;
+    private LocalDateTime startingFrom;
 
     @Schema(description = "Ending at", required = true, format = "date-time", example = "2021-03-25T14:00:00Z")
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ", shape=JsonFormat.Shape.STRING)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull
-    private OffsetDateTime endingAt;
+    private LocalDateTime endingAt;
+
+
 }

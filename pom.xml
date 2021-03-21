@@ -68,6 +68,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Postgres -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4-1206-jdbc42</version>
+        </dependency>
+
         <!-- Lombok annotations to deal with getter / setter / builder / requiredargs etc  -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -80,6 +87,23 @@
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>1.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.1.4</version>
+        </dependency>
+        <!--Implementation for JSR-374-->
+        <dependency>
+            <groupId>org.apache.johnzon</groupId>
+            <artifactId>johnzon-core</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <!--Datatype for object mapper handle JsonStructure-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr353</artifactId>
         </dependency>
 
         <dependency>

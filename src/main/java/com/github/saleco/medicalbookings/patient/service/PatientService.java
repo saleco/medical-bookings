@@ -7,6 +7,4 @@ public interface PatientService {
     PatientDto save(PatientDto patientDto);
 
     PatientDto findById(Long id);
-
-    Page<PatientDto> getPatients(int page, int size);
 }

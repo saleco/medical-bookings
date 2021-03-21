@@ -6,6 +6,7 @@ import com.github.saleco.medicalbookings.agenda.dto.UpdateDoctorsAvailabilityDto
 import org.springframework.data.domain.Page;
 
 public interface AgendaService {
+
     AgendaDto createAgenda(AgendaDto agendaDto);
 
     Page<AgendaDto> getAvailability(SearchDoctorsAvailabilityDto searchDoctorsAvailabilityDto);
@@ -13,6 +14,8 @@ public interface AgendaService {
     AgendaDto findById(Long id);
 
     void updateAgenda(AgendaDto agendaDto);
+
+    Page<AgendaDto> getAvailabilityByDoctorId(SearchDoctorsAvailabilityDto searchDoctorsAvailabilityDto, Long doctorId);
 
     void updateAvailability(UpdateDoctorsAvailabilityDto updateDoctorsAvailabilityDto);
 }

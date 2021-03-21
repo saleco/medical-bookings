@@ -1,9 +1,18 @@
 version: '3.8'
 services:
+
+  medical-bookings-db:
+    image:  postgres:9.4.26-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+
   medical-bookings-service:
     image: saleco/medical-bookings
     ports:
       - 8080:8080
     environment:
-      SPRING_ZIPKIN_BASEURL: http://zipkin
+      SPRING_PROFILES_ACTIVE: local-discovery,local
+    depends_on:
+      - medical-bookings-db
     restart: on-failure

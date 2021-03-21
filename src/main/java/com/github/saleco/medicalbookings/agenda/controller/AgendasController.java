@@ -31,7 +31,8 @@ public class AgendasController {
 
     private final AgendaService agendaService;
 
-    @Operation(summary = "Get Doctors Availability")
+    @Operation(summary = "Get Doctors Availability",
+    description = "As a patient, I must be able to schedule an appointment for myself.")
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "The list of doctors Availability has been returned",
@@ -43,20 +44,20 @@ public class AgendasController {
         return agendaService.getAvailability(searchDoctorsAvailabilityDto);
     }
 
-    @Operation(summary = "Update Doctors Availability")
+    @Operation(summary = "Update Doctors Availability",
+    description = "As a doctor, I can set my self as unavailable for a specific time period. blocking any " +
+      "patients from scheduling an appointment for that period.")
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
-      @ApiResponse(responseCode = "204", description = "The doctors availability was successfully updated."),
+      @ApiResponse(responseCode = "200", description = "The doctors availability was successfully updated."),
       @ApiResponse(responseCode = "400", description = "Invalid parameter",
-        content = @Content(schema = @Schema(implementation = MedicalBookingsResponse.class)))})
+        content = @Content(schema = @Schema(implementation = MedicalBookingsResponse.class))),
+    @ApiResponse(responseCode = "404", description = "Not found",
+      content = @Content(schema = @Schema(implementation = MedicalBookingsResponse.class)))})
     public void updateDoctorsAvailability(
       @Parameter(name = "Update Doctors Availability DTO", required = true) @RequestBody @Valid UpdateDoctorsAvailabilityDto updateDoctorsAvailabilityDto) {
         agendaService.updateAvailability(updateDoctorsAvailabilityDto);
     }
-
-
-
-
 }
 
 

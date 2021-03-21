@@ -27,27 +27,32 @@ public class ExceptionHandlerController {
 	private static final String START_TAG = "{";
 
 	private static final String END_TAG = "}";
+	public static final String THERE_IS_A_VALIDATION_RULE_THAT_PREVENTS_THE_REQUEST_SEE_RULE = "There is a validation rule that prevents the request. See rule | ";
+	public static final String NOT_NULL = "NotNull";
+	public static final String PATTERN = "Pattern";
+	public static final String SIZE = "Size";
+	public static final String VALIDATION_EXCEPTION_MESSAGE = "ValidationException: %s";
 
 	@ExceptionHandler(value = { ConstraintViolationException.class, MethodArgumentNotValidException.class,
 			BusinessException.class, Exception.class })
 	protected ResponseEntity<Object> handleBusinessException(WebRequest request, Exception ex) {
 		if (ex instanceof ConstraintViolationException) {
-			StringBuilder message = new StringBuilder("There is a validation rule that prevents the request. See rule | ");
+			StringBuilder message = new StringBuilder(THERE_IS_A_VALIDATION_RULE_THAT_PREVENTS_THE_REQUEST_SEE_RULE);
 			ConstraintViolationException cve = (ConstraintViolationException) ex;
 			for (ConstraintViolation<?> violation : cve.getConstraintViolations()) {
 				ConstraintDescriptor<? extends Annotation> descriptor = violation.getConstraintDescriptor();
 				Annotation annotation = descriptor.getAnnotation();
 				String annotationName = annotation.annotationType().getCanonicalName();
 				if (annotationName != null) {
-					if (annotationName.endsWith("NotNull")) {
+					if (annotationName.endsWith(NOT_NULL)) {
 						message.append(START_TAG + violation.getPropertyPath() + ",mandatory" + END_TAG);
 					}
-					if (annotationName.endsWith("Size")) {
+					if (annotationName.endsWith(SIZE)) {
 						String min = "" + descriptor.getAttributes().get("min");
 						String max = "" + descriptor.getAttributes().get("max");
 						message.append(START_TAG + violation.getPropertyPath() + ",size," + min + "-" + max + END_TAG);
 					}
-					if (annotationName.endsWith("Pattern")) {
+					if (annotationName.endsWith(PATTERN)) {
 						String pattern = "" + descriptor.getAttributes().get("regexp");
 						message.append(START_TAG + violation.getPropertyPath() + ",pattern," + pattern + END_TAG);
 					}
@@ -60,7 +65,7 @@ public class ExceptionHandlerController {
 		}
 
 		if (ex instanceof MethodArgumentNotValidException) {
-			StringBuilder message = new StringBuilder("There is a validation rule that prevents the request. See rule | ");
+			StringBuilder message = new StringBuilder(THERE_IS_A_VALIDATION_RULE_THAT_PREVENTS_THE_REQUEST_SEE_RULE);
 			MethodArgumentNotValidException nve = (MethodArgumentNotValidException) ex;
 			BindingResult bindingResult = nve.getBindingResult();
 			for (ObjectError error : bindingResult.getAllErrors()) {
@@ -129,7 +134,7 @@ public class ExceptionHandlerController {
 				}
 			}
 
-			log.info("ValidationException: %s", message, ex);
+			log.info(VALIDATION_EXCEPTION_MESSAGE, message, ex);
 			ex = new ValidationException(message.toString());
 		}
 

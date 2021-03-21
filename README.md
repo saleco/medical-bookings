@@ -4,7 +4,9 @@
 ## Agendas's API - Resources related to Agendas's information
 
 #TODO
-- Global Exception Handler
+- Java doc
+- Global Exception Handler (space for improvements)
+- Integration Tests at least for the main use cases
 - ELK for logging
 - Eureka for service discovery
 - Cloud Config for properties
