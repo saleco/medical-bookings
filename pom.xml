@@ -28,6 +28,7 @@
         <spring-cloud-sleuth.version>2.2.7.RELEASE</spring-cloud-sleuth.version>
         <ch.qos.logback.version>1.2.3</ch.qos.logback.version>
         <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
+        <spring.boot.admin.version>2.2.2</spring.boot.admin.version>
     </properties>
 
     <dependencyManagement>
@@ -150,6 +151,18 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!-- Admin UI to check metrics -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring.boot.admin.version}</version>
+        </dependency>
+
+        <!-- Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <dependency>
             <groupId>javax.json</groupId>
             <artifactId>javax.json-api</artifactId>

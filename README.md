@@ -1,41 +1,35 @@
 [![CircleCI](https://circleci.com/gh/saleco/medical-bookings.svg?style=svg)](https://circleci.com/gh/saleco/medical-bookings)
 # Medical Bookings API
 
-## Agendas's API - Resources related to Agendas's information
+#User Stories
 
-#TODO
-- Java doc
-- Global Exception Handler (space for improvements)
-- Integration Tests at least for the main use cases
-- ELK for logging
-- Eureka for service discovery
-- Cloud Config for properties
-- Gateway to handle requests / security (http basic)
-- Swagger Auth
-- User Roles + Spring AOP to check roles
-
-
-• As a patient, I must be able to see the availability of the doctors and schedule an
-appointment for myself.
+## As a patient, I must be able to see the availability of the doctors and schedule an appointment for myself.
 #### Get Doctors Availability (GET /ap1/v1/agendas/search)
 #### Schedule an appointment (POST /ap1/v1/appointments/)
 
-• As a doctor, I must be able to see the appointments that I have for a given time
-period.
+## As a doctor, I must be able to see the appointments that I have for a given time period.
+#### Search Appointments for the given criterias (GET /ap1/v1/appointments/search)
 
-• As a doctor, I can set my self as unavailable for a specific time period. blocking any
-patients from scheduling an appointment for that period. (e.g., doctor can be on
-vacation, sick, etc…)
+## As a doctor, I can set my self as unavailable for a specific time period. blocking any patients from scheduling an appointment for that period. (e.g., doctor can be on vacation, sick, etc…)
+#### Update Doctors Availability (PUT /ap1/v1/agenda/search)
 
+## Running Container 
+./src/main/docker/local/docker-compose up -d
 
-• Easy configuration
+## Logging
+http://localhost:5601/
 
-• Easy to run it locally (must be a containerised solution)
+## Security 
+Credentials: admin / secret
 
-• Logging
+## Metrics 
+http://localhost:1111/
 
-• Testing
+## API
+http://localhost:8080/swagger-ui/index.html
 
-• Metrics - nice to have
-
-• Security
+##Possible Improvements
+- Java doc
+- Eureka for service discovery
+- Cloud Config for properties
+- Gateway to handle requests / security / loadbalancing

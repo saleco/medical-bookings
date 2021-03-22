@@ -42,11 +42,28 @@ services:
     depends_on:
       - logstash
 
+  eureka-server:
+    image: springcloud/eureka:latest
+    ports:
+    - 8761:8761
+
   medical-bookings-db:
     image:  postgres:9.4.26-alpine
     restart: always
     environment:
       POSTGRES_PASSWORD: postgres
+
+  admin:
+    image: slydeveloper/spring-boot-admin:latest
+    ports:
+      - 1111:1111
+    environment:
+      SPRING_BOOT_ADMIN_SECURITY_ENABLED: "false"
+    healthcheck:
+      test: "curl -sS http://localhost:1111/health"
+      interval: 1s
+      timeout: 60s
+      retries: 120
 
   medical-bookings-service:
     image: saleco/medical-bookings
@@ -56,6 +73,7 @@ services:
       SPRING_PROFILES_ACTIVE: local-discovery,local
     depends_on:
       - medical-bookings-db
+      - admin
     restart: on-failure
     labels:
       collect_logs_with_filebeat: "true"
