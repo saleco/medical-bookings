@@ -2,9 +2,6 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
-orbs:
-  codecov: codecov/codecov@1.0.2
-
 jobs:
   # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
   build-and-test:
@@ -25,9 +22,6 @@ jobs:
       - run:
           name: Test
           command: mvn test
-      - codecov/upload:
-        file: "../target/surefire-reports/TEST-com.github.saleco.medicalbookings.patient.service.PatientServiceImplTest.xml"
-        token: 0634a387-51c5-430e-825b-7238fb926a3c
 
 workflows:
   # Below is the definition of your workflow.
