@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/saleco/medical-bookings.svg?style=svg)](https://circleci.com/gh/saleco/medical-bookings)
+[![Build Status](https://travis-ci.com/saleco/medical-bookings.svg?branch=master)](https://travis-ci.com/saleco/medical-bookings)
 [![codecov](https://codecov.io/gh/saleco/medical-bookings/branch/master/graph/badge.svg?token=7FO9XSWVAT)](https://codecov.io/gh/saleco/medical-bookings)
 # Medical Bookings API
 
