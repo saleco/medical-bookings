@@ -26,7 +26,8 @@ jobs:
           name: Test
           command: mvn test
       - codecov/upload:
-        file: "../target/surefire-reports/"
+        file: "../target/surefire-reports/TEST-com.github.saleco.medicalbookings.patient.service.PatientServiceImplTest.xml"
+        token: 0634a387-51c5-430e-825b-7238fb926a3c
 
 workflows:
   # Below is the definition of your workflow.
