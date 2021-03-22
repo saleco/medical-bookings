@@ -42,11 +42,6 @@ services:
     depends_on:
       - logstash
 
-  eureka-server:
-    image: springcloud/eureka:latest
-    ports:
-    - 8761:8761
-
   medical-bookings-db:
     image:  postgres:9.4.26-alpine
     restart: always
