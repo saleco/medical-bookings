@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.com/saleco/medical-bookings.svg?branch=master)](https://travis-ci.com/saleco/medical-bookings)
 [![codecov](https://codecov.io/gh/saleco/medical-bookings/branch/master/graph/badge.svg?token=7FO9XSWVAT)](https://codecov.io/gh/saleco/medical-bookings)
+![docker](https://img.shields.io/docker/v/saleco/medical-bookings)
 # Medical Bookings API
 
 # User Stories
