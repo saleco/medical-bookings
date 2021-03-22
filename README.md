@@ -1,7 +1,7 @@
 [![CircleCI](https://circleci.com/gh/saleco/medical-bookings.svg?style=svg)](https://circleci.com/gh/saleco/medical-bookings)
 # Medical Bookings API
 
-#User Stories
+# User Stories
 
 ## As a patient, I must be able to see the availability of the doctors and schedule an appointment for myself.
 #### Get Doctors Availability (GET /ap1/v1/agendas/search)
@@ -13,19 +13,19 @@
 ## As a doctor, I can set my self as unavailable for a specific time period. blocking any patients from scheduling an appointment for that period. (e.g., doctor can be on vacation, sick, etc…)
 #### Update Doctors Availability (PUT /ap1/v1/agenda/search)
 
-## Running Container 
+# Running Container 
 ./src/main/docker/local/docker-compose up -d
 
-## Logging
+# Logging
 http://localhost:5601/
 
-## Security 
+# Security 
 Credentials: admin / secret
 
-## Metrics 
+# Metrics 
 http://localhost:1111/
 
-## API
+# API
 http://localhost:8080/swagger-ui/index.html
 
 ##Possible Improvements
