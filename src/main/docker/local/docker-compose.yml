@@ -42,12 +42,6 @@ services:
     depends_on:
       - logstash
 
-  medical-bookings-db:
-    image:  postgres:9.4.26-alpine
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: postgres
-
   admin:
     image: slydeveloper/spring-boot-admin:latest
     ports:
@@ -64,10 +58,7 @@ services:
     image: saleco/medical-bookings
     ports:
       - 8080:8080
-    environment:
-      SPRING_PROFILES_ACTIVE: local-discovery,local
     depends_on:
-      - medical-bookings-db
       - admin
     restart: on-failure
     labels:

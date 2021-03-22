@@ -146,12 +146,12 @@
             <artifactId>logback-classic</artifactId>
         </dependency>
 
+        <!-- Admin UI to check metrics -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- Admin UI to check metrics -->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
