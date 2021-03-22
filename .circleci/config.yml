@@ -26,7 +26,7 @@ jobs:
           name: Test
           command: mvn test
       - codecov/upload:
-        file: ../target/surefire-reports
+        file: "../target/surefire-reports/"
 
 workflows:
   # Below is the definition of your workflow.
