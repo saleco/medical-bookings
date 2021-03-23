@@ -6,6 +6,8 @@ import com.github.saleco.medicalbookings.doctor.repository.DoctorRepository;
 import com.github.saleco.medicalbookings.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -30,5 +32,15 @@ public class DoctorServiceImpl implements DoctorService {
           .map(doctorMapper::modelToDto)
           .orElseThrow(() -> new NotFoundException(String.format("Doctor %s not found.", id)));
     }
+
+    @Override
+    public Page<DoctorDto> getDoctors(int page, int size) {
+        log.debug("Searching all doctos");
+        return
+          doctorRepository
+            .findAll(PageRequest.of(page, size))
+            .map(doctorMapper::modelToDto);
+    }
+
 
 }
