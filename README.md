@@ -2,7 +2,10 @@
 [![codecov](https://codecov.io/gh/saleco/medical-bookings/branch/master/graph/badge.svg?token=7FO9XSWVAT)](https://codecov.io/gh/saleco/medical-bookings)
 ![docker](https://img.shields.io/docker/v/saleco/medical-bookings)
 # Medical Bookings API
+This API provides an initial H2 in memory database data with Doctors, Doctor Agendas, Patients and Appointments. 
 
+Find out more [here](https://github.com/saleco/medical-bookings/blob/master/src/main/java/com/github/saleco/medicalbookings/boostrap/MedicalBookingsLoader.java) 
+ 
 # User Stories
 
 As a patient, I must be able to see the availability of the doctors and schedule an appointment for myself.
