@@ -23,7 +23,7 @@ As a doctor, I can set my self as unavailable for a specific time period. blocki
 | Service  |      Url                |  Description                             |
 |----------|:-----------------------:|-----------------------------------------:|
 | Kibana   |  [Kibana](http://localhost:5601/) | ELK Stack for Logging |
-| Metrics  |  [Spring Boot Admin](http://localhost:1111/) | Spring Boot Admin UI |
+| Metrics  |  [Spring Boot Admin](http://localhost:1111/wallboard) | Spring Boot Admin UI |
 | API      | [Swagger UI](http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config) | Open API Description (admin / secret) |
 
 ## Possible Improvements
