@@ -33,6 +33,7 @@ class AgendasControllerTest {
 
     public static final String AGENDAS_API = "/ap1/v1/agendas";
     public static final String AGENDAS_SEARCH_API = "/ap1/v1/agendas/search";
+
     @Autowired
     private MockMvc mockMvc;
 

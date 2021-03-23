@@ -13,7 +13,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -88,4 +92,23 @@ class PatientServiceImplTest {
 
     }
 
+    @DisplayName("Given page and size when getPatients Then Should Return Page of Patient Dto")
+    @Test
+    void givenPageAndSizeWhenGetPatientsThenShouldReturnPageOfPatientDto() {
+        Patient patient = mock(Patient.class);
+        PatientDto patientDto = mock(PatientDto.class);
+
+        given(patientRepository.findAll(PageRequest.of(0, 20))).willReturn(new PageImpl<>(Collections.singletonList(patient)));
+        given(patientMapper.modelToDto(patient)).willReturn(patientDto);
+
+        Page<PatientDto> patientDtos = patientService.getPatients(0, 20);
+
+        assertThat(patientDtos).isNotNull();
+        assertThat(patientDtos).hasSize(1);
+
+        then(patientRepository).should(times(1)).findAll(any(PageRequest.class));
+        then(patientMapper).should(times(1)).modelToDto(any(Patient.class));
+        then(patientRepository).shouldHaveNoMoreInteractions();
+        then(patientMapper).shouldHaveNoMoreInteractions();
+    }
 }
