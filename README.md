@@ -16,7 +16,7 @@ As a doctor, I can set my self as unavailable for a specific time period. blocki
 - Update Doctors Availability [(PUT /ap1/v1/agenda/search)](http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#/Agendas's%20API/updateDoctorsAvailability)
 
 # Running Container 
-./src/main/docker/local/docker-compose up -d
+`./src/main/docker/local/docker-compose up -d`
 
 # Services
 
