@@ -96,6 +96,12 @@
             <version>${org.springdoc.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-security</artifactId>
+            <version>${org.springdoc.version}</version>
+        </dependency>
+
         <!-- MapStruct to convert models to dto / dto to model  -->
         <dependency>
             <groupId>org.mapstruct</groupId>
